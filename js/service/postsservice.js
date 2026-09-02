@@ -8,19 +8,19 @@ class PostsService {
   }
 
   findPost(id) {
-    return $.get(AppConfig.backendServer+'/rest/post/' + id);
+    return $.get(AppConfig.backendServer+'/rest/post/' + encodeURIComponent(id));
   }
 
   deletePost(id) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + id,
+      url: AppConfig.backendServer+'/rest/post/' + encodeURIComponent(id),
       method: 'DELETE'
     });
   }
 
   savePost(post) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + post.id,
+      url: AppConfig.backendServer+'/rest/post/' + encodeURIComponent(post.id),
       method: 'PUT',
       data: JSON.stringify(post),
       contentType: 'application/json'
@@ -38,7 +38,7 @@ class PostsService {
 
   createComment(postid, comment) {
     return $.ajax({
-      url: AppConfig.backendServer+'/rest/post/' + postid + '/comment',
+      url: AppConfig.backendServer+'/rest/post/' + encodeURIComponent(postid) + '/comment',
       method: 'POST',
       data: JSON.stringify(comment),
       contentType: 'application/json'

@@ -50,8 +50,11 @@ class MainComponent extends Fronty.RouterComponent {
         if (logged != null) {
           this.userModel.setLoggeduser(logged);
         }
-        super.start(); // now we can call start
-      });
+      })
+      // Invalid or expired stored credentials must not prevent the public
+      // application from starting. login() already clears them on failure.
+      .catch(() => {})
+      .then(() => super.start());
   }
 
   _createUserBarComponent() {

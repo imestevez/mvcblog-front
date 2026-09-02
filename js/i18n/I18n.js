@@ -30,8 +30,11 @@ class I18n {
       return '';
     }
 
-    if (getCookie('language') !== '') {
-      return $.get(messagesBasePath + '/' + getCookie('language') + "_messages.js", null, null, 'text').then((source) => eval(source));
+    var language = getCookie('language');
+    var supportedLanguages = ['es'];
+
+    if (supportedLanguages.indexOf(language) !== -1) {
+      return $.get(messagesBasePath + '/' + language + "_messages.js", null, null, 'text').then((source) => eval(source));
     } else {
       return new Promise((resolve, reject) => resolve());
     }

@@ -1,6 +1,6 @@
 /* Main mvcblog-front script */
 
-//load external resources
+// Load external resources.
 function loadTextFile(url) {
   return new Promise((resolve, reject) => {
     $.get({
@@ -11,16 +11,59 @@ function loadTextFile(url) {
       }
     }).then((source) => {
       resolve(source);
-    }).fail(() => reject());
+    }).fail((xhr, status, error) => reject(error || status));
   });
 }
 
+/* Backend server configuration.
+*
+* backendServer must contain the base URL or path where the MVCBlog backend
+* is installed.
+*
+* Do NOT include /rest here. PostsService and UserService already add
+* /rest/... to every request.
+*/
 
-// Configuration
+/* 
+* Option 1: backend installed under /mvcblog on the same server.
+*
+* Example:
+*   SPA:     http://localhost:<port>/mvcblog/frontend/
+*   Backend: http://localhost:<port>/mvcblog/rest/
+*
+* Using a relative path automatically keeps the same protocol, host, and port
+* used to access the SPA.
+*/
 var AppConfig = {
-  backendServer: 'http://localhost'
-  //backendServer: '/mvcblog'
-}
+  backendServer: '/mvcblog'
+};
+
+/* 
+* Option 2: backend installed directly at the server root.
+*
+* Example:
+*   SPA:     http://localhost:<port>/frontend/
+*   Backend: http://localhost:<port>/rest/
+*
+* window.location.origin uses the same protocol, host, and port as the SPA.
+*/
+// var AppConfig = {
+//   backendServer: window.location.origin
+// };
+
+/* 
+* Option 3: backend configured with a full URL.
+*
+* Use this when the backend protocol, host, port, and application path are
+* known explicitly.
+*
+* Example:
+*   SPA:     http://localhost:<port>/mvcblog/frontend/
+*   Backend: http://localhost:<port>/mvcblog/rest/
+*/
+// var AppConfig = {
+//   backendServer: 'http://localhost:8080/mvcblog'
+// };
 
 Handlebars.templates = {};
 Promise.all([

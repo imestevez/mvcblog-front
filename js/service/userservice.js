@@ -5,16 +5,16 @@ class UserService {
 
   loginWithSessionData() {
     var self = this;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (window.sessionStorage.getItem('login') &&
         window.sessionStorage.getItem('pass')) {
         self.login(window.sessionStorage.getItem('login'), window.sessionStorage.getItem('pass'))
           .then(() => {
             resolve(window.sessionStorage.getItem('login'));
           })
-          .catch(() => {
-            reject();
-          });
+          // login() removes stale credentials. Continue as a logged-out user
+          // so application startup is never blocked by an expired login.
+          .catch(() => resolve(null));
       } else {
         resolve(null);
       }
@@ -25,7 +25,7 @@ class UserService {
     return new Promise((resolve, reject) => {
 
       $.get({
-          url: AppConfig.backendServer+'/rest/user/' + login,
+          url: AppConfig.backendServer+'/rest/user/' + encodeURIComponent(login),
           beforeSend: function(xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + btoa(login + ":" + pass));
           }
