@@ -28,8 +28,9 @@ function loadTextFile(url) {
 * Option 1: backend installed under /mvcblog on the same server.
 *
 * Example:
-*   SPA:     http://localhost:<port>/mvcblog/frontend/
-*   Backend: http://localhost:<port>/mvcblog/rest/
+*   Backend:  http://localhost:<port>/mvcblog/
+*   SPA:      http://localhost:<port>/mvcblog/frontend/
+*   API:      http://localhost:<port>/mvcblog/rest/
 *
 * Using a relative path automatically keeps the same protocol, host, and port
 * used to access the SPA.
@@ -42,8 +43,9 @@ var AppConfig = {
 * Option 2: backend installed directly at the server root.
 *
 * Example:
-*   SPA:     http://localhost:<port>/frontend/
-*   Backend: http://localhost:<port>/rest/
+*   Backend:  http://localhost:<port>/
+*   SPA:      http://localhost:<port>/frontend/
+*   API:      http://localhost:<port>/rest/
 *
 * window.location.origin uses the same protocol, host, and port as the SPA.
 */
@@ -58,8 +60,9 @@ var AppConfig = {
 * known explicitly.
 *
 * Example:
-*   SPA:     http://localhost:<port>/mvcblog/frontend/
-*   Backend: http://localhost:<port>/mvcblog/rest/
+*   Backend:  http://localhost:<port>/mvcblog/
+*   SPA:      http://localhost:<port>/mvcblog/frontend/
+*   API:      http://localhost:<port>/mvcblog/rest/
 */
 // var AppConfig = {
 //   backendServer: 'http://localhost:8080/mvcblog'
